@@ -43,10 +43,25 @@ public class TestCase {
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
-	    assert freq == 4: "Hi Ho Hi Ho, H: " + freq;
+	     assert freq == 4: "Hi Ho Hi Ho, H: " + freq;
 	    // Write your testCase here
-
-
+            myObject = new Frequencer();
+            myObject.setSpace("ababab".getBytes());
+            myObject.setTarget("abab".getBytes());
+            freq = myObject.frequency();
+            assert freq == 2 : "ababab, abab: "+ freq;
+            //case 2
+            myObject = new Frequencer();
+            myObject.setSpace("".getBytes());
+            myObject.setTarget("a".getBytes());
+            freq = myObject.frequency();
+            assert freq == 0 : "SPACE IS NOT SET, a: "+ freq;
+            //case 3
+            myObject = new Frequencer();
+            myObject.setSpace("abcdabcd".getBytes());
+            myObject.setTarget("".getBytes());
+            freq = myObject.frequency();
+            assert freq == -1 : "abcdabcd,TARGET IS NOT SET : "+ freq;
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred in Frequencer Object");

@@ -46,11 +46,15 @@ public class Frequencer implements FrequencerInterface {
 	if(debugMode) { showVariables(); }
         for(int start = 0; start<spaceLength; start++) { // Is it OK?
             boolean abort = false;
-            for(int i = 0; i<targetLength; i++) {
+            for(int i = 0; i<targetLength ; i++) {
+                if ((i+start) >= spaceLength ) {abort = true ;break;}
                 if(myTarget[i] != mySpace[start+i]) { abort = true; break; }
             }
             if(abort == false) { count++; }
         }
+        if (targetLength == 0 ) {  return -1; }
+        if (spaceLength == 0 ) { return 0;}
+
 	if(debugMode) { System.out.printf("%10d\n", count); }
         return count;
     }
