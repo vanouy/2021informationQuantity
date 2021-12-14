@@ -40,6 +40,8 @@ public class Frequencer implements FrequencerInterface {
 
     @Override
     public int frequency() {
+        if (myTarget == null || myTarget.length == 0 ) {  return -1; }
+        if (mySpace == null  || mySpace.length == 0) { return 0;}
         int targetLength = myTarget.length;
         int spaceLength = mySpace.length;
         int count = 0;
@@ -52,9 +54,7 @@ public class Frequencer implements FrequencerInterface {
             }
             if(abort == false) { count++; }
         }
-        if (targetLength == 0 ) {  return -1; }
-        if (spaceLength == 0 ) { return 0;}
-
+       
 	if(debugMode) { System.out.printf("%10d\n", count); }
         return count;
     }

@@ -62,6 +62,18 @@ public class TestCase {
             myObject.setTarget("".getBytes());
             freq = myObject.frequency();
             assert freq == -1 : "abcdabcd,TARGET IS NOT SET : "+ freq;
+            //case 4      
+            myObject = new Frequencer();
+            myObject.setSpace(null);
+            myObject.setTarget("abc".getBytes());
+            freq = myObject.frequency();
+            assert freq == 0 : "null,  abc : "+ freq;
+            //case 5 
+            myObject = new Frequencer();
+            myObject.setSpace("abcdabcd".getBytes());
+            myObject.setTarget(null);
+            freq = myObject.frequency();
+            assert freq == -1 : "abcdabcd,   null : "+ freq;   
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred in Frequencer Object");
