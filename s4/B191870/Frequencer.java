@@ -146,7 +146,7 @@ public class Frequencer implements FrequencerInterface{
                     suffixArray[y] = suffixArray[y+1];
                     suffixArray[y+1] = temp;
                 } else {
-                    break;
+                    continue;
                 }
             }
         }
@@ -225,8 +225,33 @@ public class Frequencer implements FrequencerInterface{
         //            suffixCompare should return -1.
         //
         // ここに比較のコードを書け 
-        //
-        return 0; // この行は変更しなければならない。
+        byte [] suffix_i = new byte[mySpace.length-i];
+        byte [] target_j_k = new byte[k-j];
+
+        for ( int x = i; x< mySpace.length; x++){
+            suffix_i[x-i] = mySpace[x];
+        }
+
+        for (int y = j ; y< k ; y++) {
+            target_j_k[y-j] =  myTarget[y];
+        }
+
+        int min = Math.min(suffix_i.length,target_j_k.length);
+
+        for (int z = 0 ; z < min ; z++) {
+            if (suffix_i[z] < target_j_k[z]) {
+                return -1;
+            }
+            else if (suffix_i[z] > target_j_k[z]) {
+                return 1;
+            }
+            else continue;
+
+        }
+
+        if (suffix_i.length < target_j_k.length) {
+            return -1;
+        } else return 0; 
     }
 
 
