@@ -258,45 +258,31 @@ public class Frequencer implements FrequencerInterface{
 
         //find lower bound when mode setting is 0
         if (mode == 0){
-
-            if (high >= low) {
-                int mid = low + (high - low)/2;
-                // find the first element from the left that equal to target
-                if ((targetCompare(suffixArray[mid], target_start, target_end) == 0) &&
-                    (mid == 0 || (targetCompare(suffixArray[mid - 1], target_start, target_end) == -1)))
-                    return mid;
-                //binary search until we found the one match above condition
-                else if (targetCompare(suffixArray[mid], target_start, target_end) == -1)
-                    
-                    return Bsearch((mid + 1), high, target_start, target_end,0);
-                else
-                    
-                    return Bsearch(low, (mid - 1), target_start, target_end,0);
+ 
+            if (low > high){
+                return low;
             }
-            
+            int mid = low + (high-low)/2;
+            if (targetCompare(suffixArray[mid], target_start, target_end) == -1)
+                return Bsearch(mid+1,high,target_start, target_end,0);
+            else
+                return Bsearch(low,mid-1,target_start,target_end,0);  
         }
         
         //find upper bound when mode setting is 1
         if (mode == 1) {
 
-            if (high >= low) {
-                int mid = low + (high - low) / 2;
-                //find the first element from the right side that equal to target and return it's index +1
-                if ((targetCompare(suffixArray[mid], target_start, target_end) == 0) &&
-                    (mid == suffixArray.length - 1 || (targetCompare(suffixArray[mid + 1], target_start, target_end) == 1)))
-                    return mid+1;
-
-                //binary search until we found the one match above condition
-                else if (targetCompare(suffixArray[mid], target_start, target_end) == 1)
-                    return Bsearch(low, (mid - 1), target_start, target_end,1);
-                else
-                    return Bsearch((mid + 1), high, target_start, target_end,1);
+            if (low > high){
+                return low;
             }
-            
+            int mid = low + (high-low)/2;
+            if (targetCompare(suffixArray[mid], target_start, target_end) == 1)
+                return Bsearch(low, (mid - 1), target_start, target_end,1);
+            else
+                return Bsearch((mid + 1), high, target_start, target_end,1);     
         }
 
         return -1;
-
     }
 
 
@@ -379,22 +365,36 @@ public class Frequencer implements FrequencerInterface{
     public static void main(String[] args) {
         Frequencer frequencerObject;
         try { // テストに使うのに推奨するmySpaceの文字は、"ABC", "CBA", "HHH", "Hi Ho Hi Ho".
+            //test case ABC
             frequencerObject = new Frequencer();
             frequencerObject.setSpace("ABC".getBytes());
             frequencerObject.printSuffixArray();
-            frequencerObject = new Frequencer();
-            frequencerObject.setSpace("CBA".getBytes());
-            frequencerObject.printSuffixArray();
-            frequencerObject = new Frequencer();
-
-            //case "HHH",target is H
-            frequencerObject.setSpace("HHH".getBytes());
-            frequencerObject.printSuffixArray();
-            frequencerObject.setTarget("H".getBytes());
+            frequencerObject.setTarget("BC".getBytes());
             int start_index = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
             System.out.print("subByteStartIndex of the target is " + start_index + "\n");
             int end_index = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
             System.out.print("subByteEndIndex of the target is " + end_index + "\n");
+
+
+            //test case CBA
+            frequencerObject = new Frequencer();
+            frequencerObject.setSpace("CBA".getBytes());
+            frequencerObject.printSuffixArray();
+            frequencerObject.setTarget("CAB".getBytes());
+            int start_index1 = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
+            System.out.print("subByteStartIndex of the target is " + start_index1 + "\n");
+            int end_index1 = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
+            System.out.print("subByteEndIndex of the target is " + end_index1 + "\n");
+            
+            //case "HHH",target is H
+            frequencerObject = new Frequencer();
+            frequencerObject.setSpace("HHH".getBytes());
+            frequencerObject.printSuffixArray();
+            frequencerObject.setTarget("H".getBytes());
+            int start_index2 = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
+            System.out.print("subByteStartIndex of the target is " + start_index2 + "\n");
+            int end_index2 = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
+            System.out.print("subByteEndIndex of the target is " + end_index2 + "\n");
 
             // case "Hi Ho Hi Ho",target is H
             frequencerObject = new Frequencer();
@@ -413,13 +413,12 @@ public class Frequencer implements FrequencerInterface{
                9:o                           
               10:o Hi Ho                     
             */
-            frequencerObject.setTarget("H".getBytes());
-            //                                         
+            frequencerObject.setTarget("Ho".getBytes());                               
             // ****  Please write code to check subByteStartIndex, and subByteEndIndex
-            int start_index1 = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteStartIndex of the target is " + start_index1 + "\n");
-            int end_index1 = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteEndIndex of the target is " + end_index1 + "\n");
+            int start_index3 = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
+            System.out.print("subByteStartIndex of the target is " + start_index3 + "\n");
+            int end_index3 = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
+            System.out.print("subByteEndIndex of the target is " + end_index3 + "\n");
             //int result3 = frequencerObject.frequency();
             //System.out.print("Freq = " + result3 + " ");
             //if(3 == result3) { System.out.println("OK"); } else {System.out.println("WRONG"); }
