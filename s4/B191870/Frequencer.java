@@ -380,7 +380,7 @@ public class Frequencer implements FrequencerInterface{
             frequencerObject = new Frequencer();
             frequencerObject.setSpace("CBA".getBytes());
             frequencerObject.printSuffixArray();
-            frequencerObject.setTarget("CAB".getBytes());
+            frequencerObject.setTarget("BAC".getBytes());
             int start_index1 = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
             System.out.print("subByteStartIndex of the target is " + start_index1 + "\n");
             int end_index1 = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
