@@ -196,7 +196,7 @@ public class Frequencer implements FrequencerInterface{
   
     // Main function that sorts arr[l..r] using
     // merge()
-    void merge_sort(int arr[], int l, int r)
+    private void merge_sort(int arr[], int l, int r)
     {
         if (l < r) {
             // Find the middle point
@@ -222,6 +222,7 @@ public class Frequencer implements FrequencerInterface{
         if(spaceReady == false) return 0;
         return subByteFrequency(0, myTarget.length);
     }
+
 
     public int subByteFrequency(int start, int end) {
         // start, and end specify a string to search in myTarget,
@@ -438,7 +439,8 @@ public class Frequencer implements FrequencerInterface{
     // 減点の対象である。
 
     
-    /*public static String readFileAsString(String filename) { 
+    /*
+    public static String readFileAsString(String filename) { 
         String text = ""; 
     try { 
         text = new String(Files.readAllBytes(Paths.get("/Users/macbook/vanouy/2021informationQuantity/s4/data/"+filename)));
@@ -446,7 +448,8 @@ public class Frequencer implements FrequencerInterface{
         catch (IOException e) 
             { e.printStackTrace(); } 
         return text; 
-    }*/
+    }
+    */
     
         
     public static void main(String[] args) {
@@ -458,20 +461,23 @@ public class Frequencer implements FrequencerInterface{
             frequencerObject.printSuffixArray();
             frequencerObject.setTarget("BC".getBytes());
             int start_index = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteStartIndex of the target is " + start_index + "\n");
+            System.out.print("subByteStartIndex of BC is " + start_index + "\n");
             int end_index = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteEndIndex of the target is " + end_index + "\n");
+            System.out.print("subByteEndIndex of BC is " + end_index + "\n");
+            System.out.println("Freq="+frequencerObject.frequency());
 
 
-            //test case CBA
+            //test case ababab
             frequencerObject = new Frequencer();
             frequencerObject.setSpace("ababab".getBytes());
             frequencerObject.printSuffixArray();
             frequencerObject.setTarget("abab".getBytes());
             int start_index1 = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteStartIndex of the target is " + start_index1 + "\n");
+            System.out.print("subByteStartIndex of abab is " + start_index1 + "\n");
             int end_index1 = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteEndIndex of the target is " + end_index1 + "\n");
+            System.out.print("subByteEndIndex of abab is " + end_index1 + "\n");
+            System.out.println("Freq="+frequencerObject.frequency());
+
             
             //case "HHH",target is H
             frequencerObject = new Frequencer();
@@ -479,21 +485,26 @@ public class Frequencer implements FrequencerInterface{
             frequencerObject.printSuffixArray();
             frequencerObject.setTarget("H".getBytes());
             int start_index2 = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteStartIndex of the target is " + start_index2 + "\n");
+            System.out.print("subByteStartIndex of H is " + start_index2 + "\n");
             int end_index2 = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteEndIndex of the target is " + end_index2 + "\n");
+            System.out.print("subByteEndIndex of H is " + end_index2 + "\n");
+            System.out.println("Freq="+frequencerObject.frequency());
+            
             
             
             // test on given data txt.file
-            /*String a = readFileAsString("space_100k.txt");
+            /*
+            String a = readFileAsString("space_100k.txt");
             String b = readFileAsString("target_1k.txt");
             frequencerObject = new Frequencer();
             frequencerObject.setSpace(a.getBytes());
             frequencerObject.setTarget(b.getBytes());                               
             int start_index3 = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteStartIndex of the target is " + start_index3 + "\n");
+            System.out.print("subByteStartIndex of "+frequencerObject.myTarget+" is " + start_index3 + "\n");
             int end_index3 = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteEndIndex of the target is " + end_index3 + "\n");*/
+            System.out.print("subByteEndIndex of "+frequencerObject.myTarget+" is " + end_index3 + "\n");
+            System.out.println("Freq="+frequencerObject.frequency());
+            */
 
             //frequencerObject.printSuffixArray();
             /* Example from "Hi Ho Hi Ho"    
@@ -514,16 +525,12 @@ public class Frequencer implements FrequencerInterface{
             frequencerObject.printSuffixArray();
             frequencerObject.setTarget("H".getBytes());
             int start_index4 = frequencerObject.subByteStartIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteStartIndex of the target is " + start_index4 + "\n");
+            System.out.print("subByteStartIndex of H is " + start_index4 + "\n");
             int end_index4 = frequencerObject.subByteEndIndex(0, frequencerObject.myTarget.length);
-            System.out.print("subByteEndIndex of the target is " + end_index4 + "\n");
+            System.out.print("subByteEndIndex of H is " + end_index4 + "\n");
+            System.out.println("Freq="+frequencerObject.frequency());
             
-            //int result3 = frequencerObject.frequency();
-            //System.out.print("Freq = " + result3 + " ");
-            //if(3 == result3) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-            //int result = frequencerObject.frequency();
-            //System.out.print("Freq = "+ result+" ");
-            //if(4 == result) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+            
         }
         catch(Exception e) {
             System.out.println("STOP");
