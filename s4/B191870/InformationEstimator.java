@@ -41,6 +41,7 @@ public class InformationEstimator implements InformationEstimatorInterface {
 
     // IQ: information quantity for a count, -log2(count/sizeof(space))
     double iq(int freq) {
+        if (freq==0) {return Double.MAX_VALUE;}
         return  - Math.log10((double) freq / (double) mySpace.length)/ Math.log10((double) 2.0);
     }
 
@@ -70,19 +71,19 @@ public class InformationEstimator implements InformationEstimatorInterface {
        suffixEstimation = new double[myTarget.length];
        //calculate iq of the head elenment
        myFrequencer.setTarget(subBytes(myTarget, 0, 1));
-       if (myFrequencer.frequency()== 0) {return Double.MAX_VALUE;}
+       //if (myFrequencer.frequency()== 0) {return Double.MAX_VALUE;}
        suffixEstimation[0] = iq(myFrequencer.frequency());
 
         for(int i = 1; i < suffixEstimation.length; i++){
             // find min out of every substring and store in suffixEstimation array
             myFrequencer.setTarget(subBytes(myTarget, 0, i+1));
-            if (myFrequencer.frequency()== 0) {return Double.MAX_VALUE;}
+            //if (myFrequencer.frequency()== 0) {return Double.MAX_VALUE;}
             double temp_min = iq(myFrequencer.frequency()); 
 
             for(int j = 0; j < i; j++){
                 // comparision
                 myFrequencer.setTarget(subBytes(myTarget, j+1, i+1));
-                if (myFrequencer.frequency()== 0) {return Double.MAX_VALUE;}
+                //if (myFrequencer.frequency()== 0) {return Double.MAX_VALUE;}
                 double local_iq = iq(myFrequencer.frequency());
                 if(temp_min > (suffixEstimation[j] + local_iq)) {
                     temp_min = suffixEstimation[j] + local_iq;
