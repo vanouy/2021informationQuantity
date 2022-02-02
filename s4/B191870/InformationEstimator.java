@@ -22,6 +22,7 @@ public class InformationEstimator implements InformationEstimatorInterface {
     byte[] myTarget; // data to compute its information quantity
     byte[] mySpace;  // Sample space to compute the probability
     FrequencerInterface myFrequencer;  // Object for counting frequency
+    double[] suffixEstimation;
 
     private void showVariables() {
 	for(int i=0; i< mySpace.length; i++) { System.out.write(mySpace[i]); }
@@ -51,15 +52,22 @@ public class InformationEstimator implements InformationEstimatorInterface {
     @Override
     public void setSpace(byte[] space) {
         myFrequencer = new Frequencer();
-        mySpace = space; myFrequencer.setSpace(space);
+        mySpace = space; 
+        myFrequencer.setSpace(space);
     }
 
     @Override
     public double estimation(){
 
+        // returns Double.MAX_VALUE when space is not set
+        if(mySpace == null || mySpace.length == 0)  { return Double.MAX_VALUE; }
+        // returns 0.0 when the target is not set or Target's length is zero;
+        if(myTarget == null || myTarget.length == 0) { return (double) 0.0; }
+        
+
         if(debugMode) { showVariables(); }
 
-       double[] suffixEstimation = new double[myTarget.length];
+       suffixEstimation = new double[myTarget.length];
        //calculate iq of the head elenment
        myFrequencer.setTarget(subBytes(myTarget, 0, 1));
        if (myFrequencer.frequency()== 0) {return Double.MAX_VALUE;}
@@ -68,6 +76,7 @@ public class InformationEstimator implements InformationEstimatorInterface {
         for(int i = 1; i < suffixEstimation.length; i++){
             // find min out of every substring and store in suffixEstimation array
             myFrequencer.setTarget(subBytes(myTarget, 0, i+1));
+            if (myFrequencer.frequency()== 0) {return Double.MAX_VALUE;}
             double temp_min = iq(myFrequencer.frequency()); 
 
             for(int j = 0; j < i; j++){
@@ -84,10 +93,6 @@ public class InformationEstimator implements InformationEstimatorInterface {
 
         if(debugMode) { System.out.printf("\testimation = %5.5f\n", suffixEstimation[myTarget.length-1]); }
 
-        // returns 0.0 when the target is not set or Target's length is zero;
-        if(myTarget == null || myTarget.length == 0) { return 0.0; }
-        // returns Double.MAX_VALUE when space is not set
-        if(mySpace == null )  { return Double.MAX_VALUE; }
 
         return suffixEstimation[myTarget.length-1];
 	
